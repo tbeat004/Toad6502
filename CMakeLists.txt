@@ -6,3 +6,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Toad6502 src/main.cpp)
 
+find_package(raylib CONFIG REQUIRED)
+target_link_libraries(Toad6502 PRIVATE raylib)

@@ -1,0 +1,27 @@
+# Build folders
+/build/
+/build-*/
+build-ninja/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+
+# Compiled binaries and objects
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.lib
+*.a
+*.pdb
+*.ilk
+
+# Backup / system files
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
