@@ -8,14 +8,15 @@ emulator.initialize();
 emulator.loadGame("../roms/IBMLogo.ch8");
 double cpuAccumulator = 0.0;
 double timerAccumulator = 0.0;
-const double CPU_INTERVAL = 1.0 / 700.0;   // ~0.001428s
-const double TIMER_INTERVAL = 1.0 / 60.0;  // ~0.016666s
+const double CPU_INTERVAL = 1.0 / 700.0;   
+const double TIMER_INTERVAL = 1.0 / 60.0;  
 
-InitWindow(640, 320, "CHIP-8 Emulator");  // 👈 Scaled up window size
+SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+InitWindow(640, 320, "CHIP-8 Emulator");  
 
-RenderTexture2D chip8Texture = LoadRenderTexture(64, 32);  // 👈 CHIP-8 native resolution
+RenderTexture2D chip8Texture = LoadRenderTexture(64, 32);  // CHIP-8 native resolution
 SetTargetFPS(60);
-
+SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 while (!WindowShouldClose()) 
 {
     // 1. Run one or several CHIP-8 opcode cycles here (no drawing yet)
@@ -39,10 +40,10 @@ while (!WindowShouldClose())
     BeginTextureMode(chip8Texture);
         ClearBackground(BLACK);
         for (int i = 0; i < 2048; i++) {
-            if (emulator.display.pixels[i]) { // only draw if pixel == 1
-                int x = (i % 64);             // CHIP-8 width
-                int y = (i / 64);             // CHIP-8 height
-                DrawRectangle(x, y, 1, 1, WHITE); // draw native 1x1 pixel
+            if (emulator.display.pixels[i]) {
+                int x = (i % 64);             
+                int y = (i / 64);             
+                DrawRectangle(x, y, 1, 1, WHITE); 
             }
         }
 
