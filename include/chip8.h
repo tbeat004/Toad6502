@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-
+#include <array>
 // Define globally usable types
 using Byte = uint8_t;  // 8 bits
 using Word = uint16_t; // 16 bits
@@ -30,7 +30,7 @@ struct CPU {
 };
 
 struct Graphics {
-    Byte pixels[64 * 32]; // Display buffer
+    std::array<Byte, 2048> pixels;
 };
 
 struct chip8 {
