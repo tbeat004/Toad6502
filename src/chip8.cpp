@@ -104,7 +104,7 @@ void chip8::emulateCycle() {
         break;
 
     case 0x2000: // 2nnn - CALL addr - Call subroutine at nnn
-        cpu.stack[cpu.SP] = cpu.PC + 2; // Store return address
+        cpu.stack[cpu.SP] = cpu.PC; // Store return address
         cpu.SP++;                       // Increment stack pointer
         cpu.PC = opcode & 0x0FFF;       // Jump to address NNN
         break;
@@ -213,7 +213,7 @@ void chip8::emulateCycle() {
                 cpu.PC += 2;
             }
         }
-        break;
+        break; 
 
     case 0xA000: // Annn - LD I, addr - Set I = nnn
         cpu.I = opcode & 0x0FFF;
@@ -224,7 +224,7 @@ void chip8::emulateCycle() {
         break;
 
     case 0xC000: // Cxkk - RND Vx, byte
-        cpu.V[x] = rand() % 256 & (opcode & 0x00FF);
+        cpu.V[x] = (rand() % 256) & (opcode & 0x00FF);
         break;
 
     case 0xD000: { // Dxyn - DRW Vx, Vy, nibble
@@ -285,35 +285,51 @@ void chip8::emulateCycle() {
             cpu.V[x] = cpu.DT;
             break;
 
-        case 0x000A: // Fx0A - LD Vx, K
+        case 0x000A: { // Fx0A - LD Vx, K
+            bool keyPressed = false;
             for (int i = 0; i < 16; i++) {
                 if (cpu.keypad[i]) {
                     cpu.V[x] = i;
+                    keyPressed = true;
                     break;
                 }
             }
-            cpu.PC -= 2;
+            if (!keyPressed) { cpu.PC -= 2;}
             break;
-
+        }
         case 0x0015: // Fx15 - LD DT, Vx
+            cpu.DT = cpu.V[x];
             break;
 
         case 0x0018: // Fx18 - LD ST, Vx
+            cpu.ST = cpu.V[x];
             break;
 
         case 0x001E: // Fx1E - ADD I, Vx
+            cpu.I += cpu.V[x];
             break;
 
         case 0x0029: // Fx29 - LD F, Vx
+            cpu.I = cpu.V[x] * 5;
             break;
 
         case 0x0033: // Fx33 - LD B, Vx
+            memory.memory[cpu.I] = cpu.V[x] / 100; // Hundreds
+            memory.memory[cpu.I + 1] = (cpu.V[x] % 100) / 10; // Tens
+            memory.memory[cpu.I + 2] = cpu.V[x] % 10; // Ones
             break;
 
         case 0x0055: // Fx55 - LD [I], Vx
+            for (int k = 0; k <= x; k++) {
+                memory.memory[cpu.I + k] = cpu.V[k];
+            }
+            cpu.I += x + 1;
             break;
 
         case 0x0065: // Fx65 - LD Vx, [I]
+            for (int k = 0; k <= x; k++) {
+                cpu.V[k] = memory.memory[cpu.I + k];
+            }
             break;
 
         default:
