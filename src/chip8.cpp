@@ -227,8 +227,7 @@ void chip8::emulateCycle() {
         cpu.V[x] = rand() % 256 & (opcode & 0x00FF);
         break;
 
-    case 0xD000: { // Dxyn - DRW Vx, Vy, nibble - Display n-byte sprite starting
-                   // at memory location I at (Vx, Vy), set VF = collision
+    case 0xD000: { // Dxyn - DRW Vx, Vy, nibble
         uint8_t Vx = cpu.V[x];
         uint8_t Vy = cpu.V[y];
         uint8_t height = opcode & 0x000F;
