@@ -5,7 +5,7 @@
 int main() {
 chip8 emulator;
 emulator.initialize();
-emulator.loadGame("../roms/octoachip8story.ch8");
+emulator.loadGame("../roms/test_opcode.ch8");
 double cpuAccumulator = 0.0;
 double timerAccumulator = 0.0;
 const double CPU_INTERVAL = 1.0 / 700.0;   

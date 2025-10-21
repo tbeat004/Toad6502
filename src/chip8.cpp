@@ -13,6 +13,7 @@ void chip8::initialize() {
     for (int i = 0; i < 64 * 32; ++i) {
         display.pixels[i] = 0;
     }
+    
     // Clear stack
     for (int i = 0; i < 16; ++i) {
         cpu.stack[i] = 0;
