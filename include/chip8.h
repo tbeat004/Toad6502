@@ -1,10 +1,10 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include <vector>
 // Define globally usable types
 using Byte = uint8_t;  // 8 bits
 using Word = uint16_t; // 16 bits
-
 /* System Memory Map
 0x000 to 0x1FF - Reserved for the interpreter (contains font set in emu) 0 to 511
 0x050 to 0x0A0 - Used for the built-in 4x5 pixel font set (0-F) 80 to 160
@@ -26,7 +26,7 @@ struct CPU {
     Word stack[16]; 
     Byte SP;       // Only needs 0–15, so Byte is enough
 
-    Byte keypad[16];
+    bool keypad[16];
 };
 
 struct Graphics {

@@ -17,8 +17,9 @@ InitWindow(640, 320, "CHIP-8 Emulator");
 RenderTexture2D chip8Texture = LoadRenderTexture(64, 32);  // CHIP-8 native resolution
 SetTargetFPS(60);
 SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-while (!WindowShouldClose()) 
-{
+while (!WindowShouldClose()) {
+    // Check for key presses
+    emulator.setKeys();
     // 1. Run one or several CHIP-8 opcode cycles here (no drawing yet)
     double dt = GetFrameTime();
     cpuAccumulator += dt;
